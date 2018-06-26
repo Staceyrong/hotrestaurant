@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hot Restaurant</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Hot Restaurant</h1>
+      <h3>We only have 5 tables! Book your seat before they all are gone!</h3>
+      <hr>
+      <button id = "tableBtn" type="button" class="btn btn-primary">View Tables</button>
+      <button id = "makeRes" class="btn btn-danger btn-lg"><span class="fa fa-plus"></span> Make Reservation</button>
+    </div>
+    <div id = "tables" class="row">
+        <h2>Current Reservations</h2>
+        <!-- <div class="col-md-9" id="tablelist">
+
+        </div> -->
+    </div>
+    <div id = "reserv" class="row">
+        <form>
+            <h2>Table Reservation</h2>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Phone Number</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Email</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Unique ID</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+           
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div id = "reservation" class="row"></div>
+  </div>
+
+  <script type="text/javascript">
+    // QUESTION: What is this code doing?
+    $("#tableBtn").on("click", function() {
+        // var table_row = $("<div class='row'>");
+        // var table_col = $("<div class='col-md-9'>");
+        // var table_bnt = $("<button type='button' class='btn btn-primary'>1</button>");
+        // var message = $("<span>table1</span>");
+        // table_col.append(table_bnt).append(message);
+        // table_row.append(table_col);
+        // $("#tables").append(table_row);
+
+        for (var i = 0; i < 5; i++) {
+            var table_row = $("<div class='row'>");
+            var table_col = $("<div class='col-md-9'>");
+            var table_bnt = $("<button type='button' class='btn btn-primary'>1</button>");
+            var message = $("<span>table"+i+"</span>");
+            table_col.append(table_bnt).append(message);
+            table_row.append(table_col);
+            // $("#tables").append(table_row);
+            $("#tables").append(table_row);
+            console.log("hihi");
+        }
+      
+    });
+
+    $("#makeRes").on("click", function() {
+
+
+        var table_row = $("<div class='row'>");
+        var table_col = $("<div class='col-md-9'>");
+        var table_bnt = $("<button type='button' class='btn btn-primary'>1</button>");
+        var message = $("<span>table"+i+"</span>");
+        table_col.append(table_bnt).append(message);
+        table_row.append(table_col);
+        // $("#tables").append(table_row);
+        $("#tables").append(table_row);
+        console.log("hihi");
+    }
+
+});
+
+    $("#search-btn").on("click", function() {
+      var searchedCharacter = $("#character-search").val().trim();
+
+      // Using a RegEx Pattern to remove spaces from searchedCharacter
+      // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+      searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+      // QUESTION: What does $.get do? What are the parameters it is expecting?
+      $.get("/api/characters/" + searchedCharacter, function(data) {
+        console.log(data);
+        if (data) {
+          $("#stats").show();
+          $("#name").text(data.name);
+          $("#role").text(data.role);
+          $("#age").text(data.age);
+          $("#force-points").text(data.forcePoints);
+        }
+        else {
+          $("#name").text("The force is not strong with this one. Your character was not found.");
+          $("#stats").hide();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
